@@ -1,0 +1,29 @@
+# ======================================
+# Django Project Git Ignore (by ChatGPT)
+# ======================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+db.sqlite3
+*.log
+/media/
+staticfiles/
+static/
+
+# Virtual environment
+env/
+venv/
+ENV/
+*.env
+
+# VS Code
+.vscode/
+.settings/
+
+# OS Files
+.DS_Store
+Thumbs.db
