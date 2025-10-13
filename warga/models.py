@@ -9,3 +9,18 @@ class Warga(models.Model):
 
     def __str__(self):
         return self.nama_lengkap
+
+
+class Pengaduan(models.Model):
+    pelapor = models.ForeignKey(Warga, on_delete=models.CASCADE, related_name='pengaduan')
+    judul = models.CharField(max_length=200)
+    deskripsi = models.TextField()
+    status = models.CharField(max_length=20, choices=[
+        ('baru', 'Baru'),
+        ('proses', 'Sedang Diproses'),
+        ('selesai', 'Selesai')
+    ], default='baru')
+
+    def __str__(self):
+        return f"{self.judul} - {self.pelapor.nama_lengkap}"
+

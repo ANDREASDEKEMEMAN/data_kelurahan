@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Pengaduan Warga</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f7fc;
+            color: #333;
+        }
+
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+        }
+
+        .pengaduan-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pengaduan-card h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+
+        .pengaduan-card small {
+            color: #666;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: white;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+
+        .status.baru { background-color: #2196f3; }
+        .status.proses { background-color: #ff9800; }
+        .status.selesai { background-color: #4caf50; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #1a73e8;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📋 Daftar Semua Pengaduan Warga</h1>
+
+    {% for aduan in pengaduan_list %}
+        <div class="pengaduan-card">
+            <h3>{{ aduan.judul }}</h3>
+            <small><strong>Pelapor:</strong> {{ aduan.pelapor.nama_lengkap }}</small><br>
+            <small><strong>Tanggal Laporan:</strong> {{ aduan.pelapor.tanggal_registrasi|date:"d M Y, H:i" }}</small>
+            <p>{{ aduan.deskripsi }}</p>
+            <span class="status {{ aduan.status }}">{{ aduan.get_status_display }}</span>
+        </div>
+    {% empty %}
+        <p>Tidak ada pengaduan yang tercatat.</p>
+    {% endfor %}
+
+    <a href="{% url 'warga_list' %}" class="back-link">← Kembali ke Daftar Warga</a>
+
+</body>
+</html>
+
