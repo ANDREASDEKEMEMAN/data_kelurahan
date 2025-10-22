@@ -6,28 +6,40 @@
 </head>
 <body>
     <h1>Detail Warga</h1>
+
     <p><strong>NIK:</strong> {{ warga.nik }}</p>
     <p><strong>Nama Lengkap:</strong> {{ warga.nama_lengkap }}</p>
     <p><strong>Alamat:</strong> {{ warga.alamat }}</p>
     <p><strong>Nomor Telepon:</strong> {{ warga.no_telepon }}</p>
-    <p><strong>Tanggal Registrasi:</strong> {{ warga.tanggal_registrasi }}</p>
 
     <hr>
 
+    <!-- 🔹 Tombol Aksi Edit & Hapus -->
+    <p>
+        <a href="{% url 'warga-edit' warga.pk %}">✏️ Edit Data</a> |
+        <a href="{% url 'warga-hapus' warga.pk %}">🗑️ Hapus Data</a>
+    </p>
+
+    <hr>
+
+    <!-- 🔹 Daftar Pengaduan oleh Warga -->
     <h2>Daftar Pengaduan oleh {{ warga.nama_lengkap }}</h2>
     <ul>
-        {% for aduan in warga.pengaduan.all %}
+        {% for aduan in warga.pengaduan_set.all %}
             <li>
-                <strong>{{ aduan.judul }}</strong>
-                (Status: {{ aduan.get_status_display }})
-                <p>{{ aduan.deskripsi }}</p>
+                <p><strong>{{ aduan.isi_laporan }}</strong></p>
+                <small>Tanggal: {{ aduan.tanggal }}</small><br>
+                <a href="{% url 'pengaduan-edit' aduan.pk %}">Edit</a> |
+                <a href="{% url 'pengaduan-hapus' aduan.pk %}">Hapus</a>
             </li>
         {% empty %}
-            <li>Warga ini belum pernah membuat pengaduan.</li>
+            <li>Belum ada pengaduan dari warga ini.</li>
         {% endfor %}
     </ul>
 
-    <a href="{% url 'warga_list' %}">← Kembali ke Daftar Warga</a>
+    <hr>
+    <a href="{% url 'warga-list' %}">← Kembali ke Daftar Warga</a>
 </body>
 </html>
+
 

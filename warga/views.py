@@ -1,14 +1,16 @@
 # warga/views.py
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
 
-# ======== WARGA ========
+# =========================
+#         WARGA
+# =========================
 class WargaListView(ListView):
     model = Warga
     template_name = 'warga/warga_list.html'
-    context_object_name = 'warga_list'  # biar template bisa akses {{ warga_list }}
+    context_object_name = 'warga_list'  # bisa diakses di template pakai {{ warga_list }}
 
 class WargaDetailView(DetailView):
     model = Warga
@@ -21,12 +23,24 @@ class WargaCreateView(CreateView):
     template_name = 'warga/warga_form.html'
     success_url = reverse_lazy('warga-list')
 
+class WargaUpdateView(UpdateView):
+    model = Warga
+    form_class = WargaForm
+    template_name = 'warga/warga_form.html'  # pakai form yang sama
+    success_url = reverse_lazy('warga-list')
 
-# ======== PENGADUAN ========
+class WargaDeleteView(DeleteView):
+    model = Warga
+    template_name = 'warga/warga_confirm_delete.html'
+    success_url = reverse_lazy('warga-list')
+
+# =========================
+#       PENGADUAN
+# =========================
 class PengaduanListView(ListView):
     model = Pengaduan
     template_name = 'warga/pengaduan_list.html'
-    context_object_name = 'pengaduan_list'  # biar bisa pakai {{ pengaduan_list }} di template
+    context_object_name = 'pengaduan_list'
 
 class PengaduanCreateView(CreateView):
     model = Pengaduan
@@ -34,3 +48,21 @@ class PengaduanCreateView(CreateView):
     template_name = 'warga/pengaduan_form.html'
     success_url = reverse_lazy('pengaduan-list')
 
+class PengaduanUpdateView(UpdateView):
+    model = Pengaduan
+    form_class = PengaduanForm
+    template_name = 'warga/pengaduan_form.html'
+    success_url = reverse_lazy('pengaduan-list')
+
+class PengaduanDeleteView(DeleteView):
+    model = Pengaduan
+    template_name = 'warga/pengaduan_confirm_delete.html'
+    success_url = reverse_lazy('pengaduan-list')
+
+
+
+# ======== DELETE PENGADUAN ========
+class PengaduanDeleteView(DeleteView):
+    model = Pengaduan
+    template_name = 'warga/pengaduan_confirm_delete.html'
+    success_url = reverse_lazy('pengaduan-list')
