@@ -13,7 +13,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'warga',
+    'warga',          # Aplikasi kamu
+    'rest_framework', # Tambahkan ini untuk DRF
 ]
 
 MIDDLEWARE = [
@@ -62,3 +63,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+import os
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'warga/static'),
+]

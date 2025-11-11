@@ -1,0 +1,70 @@
+/* ======= STYLE HALAMAN DAFTAR WARGA ======= */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f8fafc; /* abu muda lembut */
+    margin: 0;
+    padding: 0;
+}
+
+/* ======= HEADER ======= */
+header {
+    background-color: #2563eb; /* biru cerah */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* ======= LINK TAMBAH ======= */
+.menu-links {
+    text-align: center;
+    margin: 20px;
+}
+
+.menu-links a {
+    background-color: #3b82f6; /* biru */
+    color: white;
+    padding: 10px 18px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+.menu-links a:hover {
+    background-color: #1d4ed8; /* biru lebih tua */
+}
+
+/* ======= LIST DATA ======= */
+ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+ul li {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+ul li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+ul li a {
+    text-decoration: none;
+    color: #1e3a8a; /* biru gelap */
+    font-weight: bold;
+}
+
+ul li a:hover {
+    color: #2563eb;
+}

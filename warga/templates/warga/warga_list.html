@@ -1,7 +1,19 @@
-<h1>Daftar Warga</h1>
-<a href="{% url 'warga-tambah' %}">Tambah Warga Baru</a> |
-<a href="{% url 'pengaduan-tambah' %}">Tambah Pengaduan Baru</a>
-<hr>
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Warga</title>
+    <link rel="stylesheet" href="{% static 'warga/style.css' %}">
+</head>
+<body>
+
+<header>Daftar Warga</header>
+
+<div class="menu-links">
+    <a href="{% url 'warga-tambah' %}">+ Tambah Warga Baru</a>
+    <a href="{% url 'pengaduan-tambah' %}">+ Tambah Pengaduan Baru</a>
+</div>
 
 <ul>
 {% for warga in object_list %}
@@ -10,4 +22,8 @@
     <li>Belum ada data warga.</li>
 {% endfor %}
 </ul>
+
+</body>
+</html>
+
 
