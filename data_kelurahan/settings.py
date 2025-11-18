@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'warga',          # Aplikasi kamu
     'rest_framework', # Tambahkan ini untuk DRF
     'rest_framework.authtoken',
+    'django_filters',   # ← WAJIB
 ]
 
 MIDDLEWARE = [
@@ -76,12 +77,25 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ],
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
+
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
+    ],
+
+    # --- Pagination (Sesuai Modul 10) ---
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10, # Jumlah item per halaman
+
+    # --- Filter Backend Supaya Search & Ordering Aktif ---
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ],
 }
 

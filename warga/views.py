@@ -61,10 +61,13 @@ class PengaduanDeleteView(DeleteView):
     model = Pengaduan
     template_name = 'warga/pengaduan_confirm_delete.html'
     success_url = reverse_lazy('pengaduan-list')
+
+
 # ======================================================
 #                       API MODUL 7
 # ======================================================
-from rest_framework import viewsets, filters   # ← WAJIB ADA
+from rest_framework import viewsets, filters
+from rest_framework.filters import SearchFilter, OrderingFilter
 from .serializers import WargaSerializer, PengaduanSerializer
 
 # --- API CRUD Warga (ModelViewSet) ---
@@ -72,11 +75,20 @@ class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all().order_by('-id')
     serializer_class = WargaSerializer
 
+    # Filter & Search
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['nama_lengkap', 'nik', 'alamat']
+    ordering_fields = ['id', 'nama_lengkap', 'tanggal_registrasi']  # pastikan field ini ada di model
+
+
 # --- API CRUD Pengaduan (ModelViewSet) ---
 class PengaduanViewSet(viewsets.ModelViewSet):
     queryset = Pengaduan.objects.all().order_by('-id')
     serializer_class = PengaduanSerializer
 
-    # Search
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['judul', 'isi_laporan', 'lokasi']
+    # Filter & Search
+    filter_backends = [SearchFilter, OrderingFilter]
+    # Field yang bisa dicari (search)
+    search_fields = ['isi_laporan', 'warga__nama_lengkap']
+    # Field yang bisa diurutkan (ordering)
+    ordering_fields = ['tanggal', 'warga']
