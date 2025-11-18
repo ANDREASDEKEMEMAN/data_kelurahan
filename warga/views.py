@@ -1,18 +1,16 @@
 # warga/views.py
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
 
-# ✅ Import class dari Django REST Framework
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
-from .serializers import WargaSerializer
+# ======================================================
+#                 VIEW UNTUK HTML (TIDAK DIUBAH)
+# ======================================================
 
-# =========================
-#         WARGA
-# =========================
+# ----------- WARGA (HTML) -----------
 class WargaListView(ListView):
     model = Warga
     template_name = 'warga/warga_list.html'
@@ -40,9 +38,8 @@ class WargaDeleteView(DeleteView):
     template_name = 'warga/warga_confirm_delete.html'
     success_url = reverse_lazy('warga-list')
 
-# =========================
-#       PENGADUAN
-# =========================
+
+# ----------- PENGADUAN (HTML) -----------
 class PengaduanListView(ListView):
     model = Pengaduan
     template_name = 'warga/pengaduan_list.html'
@@ -64,19 +61,22 @@ class PengaduanDeleteView(DeleteView):
     model = Pengaduan
     template_name = 'warga/pengaduan_confirm_delete.html'
     success_url = reverse_lazy('pengaduan-list')
+# ======================================================
+#                       API MODUL 7
+# ======================================================
+from rest_framework import viewsets, filters   # ← WAJIB ADA
+from .serializers import WargaSerializer, PengaduanSerializer
 
-# =========================
-#       API WARGA
-# =========================
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+# --- API CRUD Warga (ModelViewSet) ---
+class WargaViewSet(viewsets.ModelViewSet):
+    queryset = Warga.objects.all().order_by('-id')
     serializer_class = WargaSerializer
 
-# =========================
-#       API DETAIL WARGA
-# =========================
-from rest_framework.generics import RetrieveAPIView
+# --- API CRUD Pengaduan (ModelViewSet) ---
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all().order_by('-id')
+    serializer_class = PengaduanSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()
-    serializer_class = WargaSerializer
+    # Search
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['judul', 'isi_laporan', 'lokasi']
